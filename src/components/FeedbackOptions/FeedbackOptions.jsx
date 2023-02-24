@@ -1,35 +1,42 @@
-import { Container, Title } from './Feedback.styled';
+import { Container, Button } from './FeedbackOptions.styled';
 import PropTypes from 'prop-types';
 
-export const Feedback = ({ onAddGood, onAddNeutral, onAddBad }) => {
+export const FeedbackOptions = ({
+  onAddGood,
+  onAddNeutral,
+  onAddBad,
+  onTotal,
+}) => {
   return (
     <Container>
-      <Title>Please leave feedback</Title>
-      <button
+      <Button
         onClick={() => {
           onAddGood();
+          onTotal();
         }}
       >
         Good
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={() => {
           onAddNeutral();
+          onTotal();
         }}
       >
         Neutral
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={() => {
           onAddBad();
+          onTotal();
         }}
       >
         Bad
-      </button>
+      </Button>
     </Container>
   );
 };
 
-Feedback.protoTypes = {
+FeedbackOptions.protoTypes = {
   onClick: PropTypes.func.isRequired,
 };
