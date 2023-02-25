@@ -11,56 +11,41 @@ export class App extends Component {
     good: 0,
     neutral: 0,
     bad: 0,
-    total: 0,
-    //positivePercentage: 0,
   };
 
-  IncreamentGood = () => {
-    this.setState(prevState => ({
-      good: prevState.good + 1,
-    }));
-  };
+  onLeaveFeedBack = e => {
+    const value = e.currentTarget.textContent;
 
-  IncreamentNeutral = () => {
     this.setState(prevState => ({
-      neutral: prevState.neutral + 1,
-    }));
-  };
-
-  IncreamentBad = () => {
-    this.setState(prevState => ({
-      bad: prevState.bad + 1,
+      [value]: prevState[value] + 1,
     }));
   };
 
   countTotalFeedback = () => {
-    this.setState(state => ({
-      total: state.good + state.neutral + state.bad,
-    }));
+    return this.state.good + this.state.neutral + this.state.bad;
   };
 
   countPositiveFeedbackPercentage = () => {
-    return Math.round((this.state.good / this.state.total) * 100);
+    return Math.round((this.state.good / this.countTotalFeedback()) * 100);
   };
 
   render() {
+    const statisticsList = Object.keys(this.state);
     return (
       <Layout>
         <Section title={'Please leave feedback'}>
           <FeedbackOptions
-            onAddGood={this.IncreamentGood}
-            onAddNeutral={this.IncreamentNeutral}
-            onAddBad={this.IncreamentBad}
-            onTotal={this.countTotalFeedback}
+            options={statisticsList}
+            onLeaveFeedBack={this.onLeaveFeedBack}
           />
         </Section>
         <Section title={'Statistics'}>
-          {this.state.total !== 0 ? (
+          {this.countTotalFeedback() !== 0 ? (
             <Statistics
               good={this.state.good}
               neutral={this.state.neutral}
               bad={this.state.bad}
-              total={this.state.total}
+              total={this.countTotalFeedback()}
               positivePercentage={this.countPositiveFeedbackPercentage()}
             />
           ) : (

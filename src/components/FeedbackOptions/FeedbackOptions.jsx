@@ -1,42 +1,19 @@
 import { Container, Button } from './FeedbackOptions.styled';
 import PropTypes from 'prop-types';
 
-export const FeedbackOptions = ({
-  onAddGood,
-  onAddNeutral,
-  onAddBad,
-  onTotal,
-}) => {
+export const FeedbackOptions = ({ options, onLeaveFeedBack }) => {
   return (
     <Container>
-      <Button
-        onClick={() => {
-          onAddGood();
-          onTotal();
-        }}
-      >
-        Good
-      </Button>
-      <Button
-        onClick={() => {
-          onAddNeutral();
-          onTotal();
-        }}
-      >
-        Neutral
-      </Button>
-      <Button
-        onClick={() => {
-          onAddBad();
-          onTotal();
-        }}
-      >
-        Bad
-      </Button>
+      {options.map((option, index) => (
+        <Button key={index} type="button" onClick={onLeaveFeedBack}>
+          {option}
+        </Button>
+      ))}
     </Container>
   );
 };
 
 FeedbackOptions.protoTypes = {
-  onClick: PropTypes.func.isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string),
 };
