@@ -13,11 +13,9 @@ export class App extends Component {
     bad: 0,
   };
 
-  onLeaveFeedBack = e => {
-    const value = e.currentTarget.textContent;
-
-    this.setState(prevState => ({
-      [value]: prevState[value] + 1,
+  onLeaveFeedBack = option => {
+    this.setState(state => ({
+      [option]: state[option] + 1,
     }));
   };
 
@@ -30,16 +28,15 @@ export class App extends Component {
   };
 
   render() {
-    const statisticsList = Object.keys(this.state);
     return (
       <Layout>
-        <Section title={'Please leave feedback'}>
+        <Section title="Please leave feedback">
           <FeedbackOptions
-            options={statisticsList}
+            options={['good', 'neutral', 'bad']}
             onLeaveFeedBack={this.onLeaveFeedBack}
           />
         </Section>
-        <Section title={'Statistics'}>
+        <Section title="Statistics">
           {this.countTotalFeedback() !== 0 ? (
             <Statistics
               good={this.state.good}
