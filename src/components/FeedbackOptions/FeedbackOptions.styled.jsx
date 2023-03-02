@@ -6,6 +6,7 @@ export const Container = styled.div`
   padding-top: 40px;
   display: flex;
   gap: 30px;
+  justify-content: center;
 `;
 
 export const Button = styled.button`
